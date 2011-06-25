@@ -1,0 +1,3 @@
+#!/bin/sh
+
+rep --batch @PREFIX@/share/sawfish/ssd/ssd.jl

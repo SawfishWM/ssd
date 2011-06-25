@@ -1,0 +1,55 @@
+#!/bin/bash
+shopt -s extglob
+
+MODULES=( base color messages checks substitute )
+
+for mod in ${MODULES[@]}; do
+	source $PWD/.configure/$mod
+done
+
+xcount=0
+pcount=$#
+
+while [[ $xcount -lt $pcount ]]; do
+	case $1 in
+
+		--prefix* )
+			PREFIX="${1/*=}"
+		;;
+
+		*quiet )
+			QUIET="true"
+		;;
+
+		*help )
+			MODE=HELP
+		;;
+	esac
+	shift
+	xcount=$(($xcount+1))
+done
+
+unset xcount pcount
+
+if [[ ! $PREFIX ]]; then
+	PREFIX="/usr"
+fi
+
+if [[ ! $MODE ]]; then
+	MODE=USER
+fi
+
+if [[ $MODE == HELP ]]; then
+
+	help_message
+
+elif [[ $MODE == USER ]]; then
+
+	start_message
+	check_apps
+	check_libs
+	copy_in_files
+	substitute_values
+	end_message
+
+fi
