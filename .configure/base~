@@ -1,0 +1,33 @@
+#!/bin/bash
+
+export xVERSION=0.10
+CODENAME="Jumping Time"
+
+ERR_MSG=""
+
+export OLDPATH=$PATH
+export PATH="$PATH:/sbin:/usr/sbin:/usr/local/sbin"
+
+export_result ()
+{
+
+	if [[ -e $PWD/.configure/results ]]; then
+		rm $PWD/.configure/results
+	fi
+
+	echo -e "MODE=\"$MODE\"\
+\nPREFIX=\"$PREFIX\"\
+\nDATADIR=\"$PREFIX/share/bashstyle-ng/\"\
+\nDATADIR_LIST=( bin ui data rc/{,ascii,dirinfo,functions,generator,internal,settings,styles,wizard} terminfo/{,b,m,n} vim/{,colors} )\
+\nPROFILEDIR=\"/etc/profile.d/\"\
+\nBINDIR=\"$PREFIX/bin\"\
+\nLOCALEDIR=\"$PREFIX/share/locale/\"\
+\nLOCALEDIR_LIST=( {de,es,it,ru}/LC_MESSAGES/ )\
+\nICONDIR=\"$PREFIX/share/icons/hicolor/32x32/apps/\"\
+\nDOCDIR=\"$PREFIX/share/doc/bashstyle-ng/\"\
+\nDOCDIR_LIST=( img img-style )\
+\nPCDIR=\"$PREFIX/lib/pkgconfig/\"\
+\nDIRINFO_ENABLE=\"$DIRINFO_ENABLE\"\
+\nMISSING=($MISSING )" >> $PWD/.configure/results
+
+}

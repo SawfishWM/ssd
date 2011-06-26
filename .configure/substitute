@@ -1,0 +1,21 @@
+#!/bin/bash
+
+IN_FILES=( wrapper Makefile )
+
+
+SUB_PREFIX_FILES=( wrapper Makefile )
+
+copy_in_files () {
+
+	for in_file in ${IN_FILES[@]}; do
+		cp "${in_file}".in "${in_file}";
+	done
+
+}
+
+substitute_values () {
+
+	# substitute PREFIX
+	sed -e "s>@PREFIX@>$PREFIX>g" -i ${SUB_PREFIX_FILES[@]}
+
+}

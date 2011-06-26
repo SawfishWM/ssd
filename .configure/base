@@ -1,0 +1,9 @@
+#!/bin/bash
+
+export xVERSION=0.10
+CODENAME="Jumping Time"
+
+ERR_MSG=""
+
+export OLDPATH=$PATH
+export PATH="$PATH:/sbin:/usr/sbin:/usr/local/sbin"

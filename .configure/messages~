@@ -1,0 +1,81 @@
+#!/bin/bash
+
+section_message () {
+
+	if [[ ! $QUIET ]]; then
+		case $1 in
+
+			APP )
+				echo -e "\n${RED}Required ${WHITE}Applications:\n"
+			;;
+
+			LIB )
+				echo -e "\n${RED}Required ${WHITE}Libraries:\n"
+			;;
+
+		esac
+	fi
+	tput sgr0
+
+}
+
+start_message () {
+
+	echo -e "\n${GREEN}Sawfish-Session-Dialog${YELLOW} v${xVERSION} ${CYAN}${CODENAME}"
+	tput sgr0
+
+}
+
+ok_message () {
+
+	if [[ ! $QUIET ]]; then
+		if [[ $2 != "" ]]; then
+			echo -e "${WHITE}\t+ ${CYAN}$1${MAGENTA} >${GREEN} O.K.${SILVER} ( $2 )"
+		else 	echo -e "${WHITE}\t+ ${CYAN}$1${MAGENTA} >${GREEN} O.K."
+		fi
+	fi
+	tput sgr0
+}
+
+fail_message () {
+
+	if [[ $1 == "m" ]]; then
+		echo -e "${WHITE}\t+ ${CYAN}$2${MAGENTA} >${RED} !MISSING!"
+	elif [[ $1 == "o" ]]; then
+		echo -e "${WHITE}\t+ ${CYAN}$2${MAGENTA} >${RED} !OLDER THAN $3!"
+	fi
+	tput sgr0
+
+}
+
+warn_message () {
+
+	echo -e "${WHITE}\t+ ${CYAN}$1${MAGENTA} >${YELLOW} Not Available"
+	tput sgr0
+
+}
+
+
+
+end_message () {
+
+	export PATH="$OLDPATH"
+	echo -e "\n${YELLOW}Prefix:${WHITE} $PREFIX\n"
+	if [[ $ERR_MSG != "" ]]; then
+		echo -e "${YELLOW}Notes:\
+			\n${WHITE}${ERR_MSG}"
+	fi
+	tput sgr0
+
+}
+
+help_message () {
+
+	echo -e "\n${GREEN}BashStyle-NG ${YELLOW}(configure 4.0.1) ${CYAN}help"
+	echo -e "\n${WHITE}Options:\n"
+	echo -e "\n${ORANGE}--help${WHITE} |${GREEN} Display this help message\
+	\n${ORANGE}--prefix=${WHITE} |${GREEN} Change Installation Prefix (default: /usr)\" | column -t
+	echo ""
+	tput sgr0
+
+}
