@@ -148,6 +148,12 @@ where OPT is one of:
     (setq interrup-mode 'exit)
     (recursive-edit)))
 
+(define (not-empty sym)
+  (if (and sym
+	   (not (eq sym "")))
+      nil
+    t))
+
 (define logout-cmd)
 (define reboot-cmd)
 (define shutdown-cmd)
@@ -237,12 +243,6 @@ where OPT is one of:
   (g-signal-connect do-edit "pressed"
     (lambda (w) (setup t)))
 
-  (define (not-empty sym)
-    (if (and sym
-	     (not (eq sym "")))
-        nil
-      t))
-
   (if (not-empty logout-cmd)
       (g-signal-connect do-logout "pressed"
 	(lambda () (system (concat logout-cmd " &"))))
@@ -284,11 +284,10 @@ where OPT is one of:
   (throw 'quit 0))
 
 (when (get-command-line-option "--setup")
-  (setup nil)
-  (throw 'quit 0))
+  (setup nil))
 
 (when (get-command-line-option "--logout")
-  (if logout-cmd
+  (if (not-empty logout-cmd)
       (progn
 	(system (concat logout-cmd " &"))
 	(throw 'quit 0))
@@ -296,7 +295,7 @@ where OPT is one of:
     (throw 'quit 1))
 
 (when (get-command-line-option "--reboot")
-  (if reboot-cmd
+  (if (not-empty reboot-cmd)
       (progn
 	(system (concat reboot-cmd " &"))
 	(throw 'quit 0))
@@ -304,7 +303,7 @@ where OPT is one of:
     (throw 'quit 1))
 
 (when (get-command-line-option "--shutdown")
-  (if shutdown-cmd
+  (if (not-empty shutdown-cmd)
       (progn
 	(system (concat shutdown-cmd " &"))
 	(throw 'quit 0))
@@ -312,7 +311,7 @@ where OPT is one of:
     (throw 'quit 1))
 
 (when (get-command-line-option "--lockdown")
-  (if lockdown-cmd
+  (if (not-empty lockdown-cmd)
       (progn
 	(system (concat lockdown-cmd " &"))
 	(throw 'quit 0))
@@ -320,7 +319,7 @@ where OPT is one of:
     (throw 'quit 1))
 
 (when (get-command-line-option "--suspend")
-  (if suspend-cmd
+  (if (not-empty suspend-cmd)
       (progn
 	(system (concat suspend-cmd " &"))
 	(throw 'quit 0))
@@ -328,7 +327,7 @@ where OPT is one of:
     (throw 'quit 1))
 
 (when (get-command-line-option "--hibernate")
-  (if hibernate-cmd
+  (if (not-empty hibernate-cmd)
       (progn
 	(system (concat hibernate-cmd " &"))
 	(throw 'quit 0))
