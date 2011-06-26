@@ -291,7 +291,7 @@ where OPT is one of:
       (progn
 	(system (concat logout-cmd " &"))
 	(throw 'quit 0))
-    (write standard-output "No command for logout set."))
+    (write standard-output "No command for logout set.\n"))
     (throw 'quit 1))
 
 (when (get-command-line-option "--reboot")
@@ -299,7 +299,7 @@ where OPT is one of:
       (progn
 	(system (concat reboot-cmd " &"))
 	(throw 'quit 0))
-    (write standard-output "No command for reboot set."))
+    (write standard-output "No command for reboot set.\n"))
     (throw 'quit 1))
 
 (when (get-command-line-option "--shutdown")
@@ -307,7 +307,7 @@ where OPT is one of:
       (progn
 	(system (concat shutdown-cmd " &"))
 	(throw 'quit 0))
-    (write standard-output "No command for shutdown set."))
+    (write standard-output "No command for shutdown set.\n"))
     (throw 'quit 1))
 
 (when (get-command-line-option "--lockdown")
@@ -315,7 +315,7 @@ where OPT is one of:
       (progn
 	(system (concat lockdown-cmd " &"))
 	(throw 'quit 0))
-    (write standard-output "No command for lockdown set."))
+    (write standard-output "No command for lockdown set.\n"))
     (throw 'quit 1))
 
 (when (get-command-line-option "--suspend")
@@ -323,7 +323,7 @@ where OPT is one of:
       (progn
 	(system (concat suspend-cmd " &"))
 	(throw 'quit 0))
-    (write standard-output "No command for suspend set."))
+    (write standard-output "No command for suspend set.\n"))
     (throw 'quit 1))
 
 (when (get-command-line-option "--hibernate")
@@ -331,7 +331,7 @@ where OPT is one of:
       (progn
 	(system (concat hibernate-cmd " &"))
 	(throw 'quit 0))
-    (write standard-output "No command for hibernate set."))
+    (write standard-output "No command for hibernate set.\n"))
     (throw 'quit 1))
 
 (main)
