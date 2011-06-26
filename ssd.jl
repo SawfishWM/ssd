@@ -245,32 +245,38 @@ where OPT is one of:
 
   (if (not-empty logout-cmd)
       (g-signal-connect do-logout "pressed"
-	(lambda () (system (concat logout-cmd " &"))))
+	(lambda () (system (concat logout-cmd " &"))
+	           (throw 'quit 0)))
     (gtk-widget-set-sensitive do-logout nil))
 
   (if (not-empty reboot-cmd)
       (g-signal-connect do-reboot "pressed"
-	(lambda () (system (concat reboot-cmd " &"))))
+	(lambda () (system (concat reboot-cmd " &"))
+	           (throw 'quit 0)))
     (gtk-widget-set-sensitive do-reboot nil))
 
   (if (not-empty shutdown-cmd)
       (g-signal-connect do-shutdown "pressed"
-	(lambda () (system (concat shutdown-cmd " &"))))
+	(lambda () (system (concat shutdown-cmd " &"))
+	           (throw 'quit 0)))
     (gtk-widget-set-sensitive do-shutdown nil))
 
   (if (not-empty lockdown-cmd)
       (g-signal-connect do-lockdown "pressed"
-	(lambda () (system (concat lockdown-cmd " &"))))
+	(lambda () (system (concat lockdown-cmd " &"))
+	           (throw 'quit 0)))
     (gtk-widget-set-sensitive do-lockdown nil))
 
   (if (not-empty suspend-cmd)
       (g-signal-connect do-suspend "pressed"
-	(lambda () (system (concat suspend-cmd " &"))))
+	(lambda () (system (concat suspend-cmd " &"))
+	           (throw 'quit 0)))
     (gtk-widget-set-sensitive do-suspend nil))
 
   (if (not-empty hibernate-cmd)
       (g-signal-connect do-hibernate "pressed"
-	(lambda () (system (concat hibernate-cmd " &"))))
+	(lambda () (system (concat hibernate-cmd " &"))
+	           (throw 'quit 0)))
     (gtk-widget-set-sensitive do-hibernate nil))
 
   (gtk-widget-show-all window)
