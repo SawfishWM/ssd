@@ -145,7 +145,7 @@ where OPT is one of:
   (gtk-widget-show-all swindow)
 
   (unless from-ui
-    (setq interrup-mode 'exit)
+    (setq interrupt-mode 'exit)
     (recursive-edit)))
 
 (define (not-empty sym)
@@ -275,7 +275,7 @@ where OPT is one of:
 
   (gtk-widget-show-all window)
 
-  (setq interrup-mode 'exit)
+  (setq interrupt-mode 'exit)
   (recursive-edit))
 
 ;; get-opts
@@ -284,7 +284,8 @@ where OPT is one of:
   (throw 'quit 0))
 
 (when (get-command-line-option "--setup")
-  (setup nil))
+  (setup nil)
+  (throw 'quit 0))
 
 (when (get-command-line-option "--logout")
   (if (not-empty logout-cmd)
