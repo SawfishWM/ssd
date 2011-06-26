@@ -159,11 +159,11 @@ where OPT is one of:
 (when (file-exists-p "~/.ssdrc")
   (load "~/.ssdrc" t t t))
 
+;; make sure images are shown
+(gtk-rc-parse-string "gtk-button-images = 1")
+
 (define (main)
   
-  ;; make sure images are shown
-  (gtk-rc-parse-string "gtk-button-images = 1")
-
   ;; init widgets
   (define window (gtk-window-new 'toplevel))
   (gtk-container-set-border-width window 10)
