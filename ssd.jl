@@ -150,9 +150,9 @@ where OPT is one of:
 
 (define (not-empty sym)
   (if (and sym
-	   (not (eq sym "")))
-      nil
-    t))
+	   (not (equal sym "")))
+      t
+    nil))
 
 (define logout-cmd)
 (define reboot-cmd)
