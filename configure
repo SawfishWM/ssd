@@ -46,7 +46,6 @@ if [[ $MODE == HELP ]]; then
 elif [[ $MODE == USER ]]; then
 
 	start_message
-	check_apps
 	check_libs
 	copy_in_files
 	substitute_values

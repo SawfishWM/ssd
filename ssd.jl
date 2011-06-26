@@ -1,23 +1,42 @@
-(structure ()
+;;
+;; ssd.jl - Sawfis-Session-Dialog
+;;
+;; (c) 2011 Christopher Roy Bratusek <nano@tuxfamily.org>
+;;
+;; licensed under GNU GPL v2+
+;;
 
-    (open rep
-	  rep.io.files
-	  rep.system
-	  gui.gtk-2.gtk)
+(require 'rep)
+(require 'rep.system)
+(require 'rep.io.files)
+(require 'gui.gtk-2.gtk)
 
-  (define builder (gtk-builder-new))
+(define (usage)
+  (write standard-output "\
+usage: ssd OPT
+
+where OPT is one of:
+
+	--logout        Logout from current session
+	--reboot        Reboot machine
+	--shutdown      Shutdown machine
+	--lockdown      Lockdown display
+	--suspend       Suspend machine (suspend to RAM)
+	--hibernate     Hibernate machine (suspend to disk)\n"))
+
+(define logout-cmd)
+(define reboot-cmd)
+(define shutdown-cmd)
+(define lockdown-cmd)
+(define suspend-cmd)
+(define hibernate-cmd)
+
+;; load config-file
+(when (file-exists-p "~/.ssdrc")
+  (load "~/.ssdrc" t t t))
+
+(define (main)
   
-  (define logout-cmd)
-  (define restart-cmd)
-  (define shutdown-cmd)
-  (define lockdown-cmd)
-  (define suspend-cmd)
-  (define hibernate-cmd)
-
-  ;; load config-file
-  (when (file-exists-p "~/.ssdrc")
-    (load "~/.ssdrc" t t t))
-
   ;; make sure images are shown
   (gtk-rc-parse-string "gtk-button-images = 1")
 
@@ -29,16 +48,16 @@
 			  "sawfish-session-dialog")
   (gtk-window-set-position window 'center)
   (gtk-window-set-icon-from-file window "icons/ssd.png")
- 
+
   (define do-exit (gtk-button-new-from-stock "gtk-close"))
 
   (define do-logout (gtk-button-new-with-label "Logout"))
   (define img-logout (gtk-image-new-from-file "icons/logout.png"))
   (gtk-button-set-image do-logout img-logout)
 
-  (define do-restart (gtk-button-new-with-label "Restart"))
-  (define img-restart (gtk-image-new-from-file "icons/restart.png"))
-  (gtk-button-set-image do-restart img-restart)
+  (define do-reboot (gtk-button-new-with-label "Restart"))
+  (define img-reboot (gtk-image-new-from-file "icons/reboot.png"))
+  (gtk-button-set-image do-reboot img-reboot)
 
   (define do-shutdown (gtk-button-new-with-label "Shutdown"))
   (define img-shutdown (gtk-image-new-from-file "icons/shutdown.png"))
@@ -71,7 +90,7 @@
 
   (gtk-box-pack-start vbox top-button-box)
   (gtk-box-pack-start top-button-box do-logout)
-  (gtk-box-pack-start top-button-box do-restart)
+  (gtk-box-pack-start top-button-box do-reboot)
   (gtk-box-pack-start top-button-box do-shutdown)
 
   (gtk-box-pack-start vbox middle-button-box)
@@ -94,10 +113,10 @@
 	(lambda () (system (concat logout-cmd " &"))))
     (gtk-widget-set-sensitive do-logout nil))
 
-  (if restart-cmd
-      (g-signal-connect do-restart "pressed"
-	(lambda () (system (concat restart-cmd " &"))))
-    (gtk-widget-set-sensitive do-restart nil))
+  (if reboot-cmd
+      (g-signal-connect do-reboot "pressed"
+	(lambda () (system (concat reboot-cmd " &"))))
+    (gtk-widget-set-sensitive do-reboot nil))
 
   (if shutdown-cmd
       (g-signal-connect do-shutdown "pressed"
@@ -106,7 +125,7 @@
 
   (if lockdown-cmd
       (g-signal-connect do-lockdown "pressed"
-        (lambda () (system (concat lockdown-cmd " &"))))
+	(lambda () (system (concat lockdown-cmd " &"))))
     (gtk-widget-set-sensitive do-lockdown nil))
 
   (if suspend-cmd
@@ -121,5 +140,60 @@
 
   (gtk-widget-show-all window)
 
-  (setq interrupt-mode 'exit)
+  (setq interrup-mode 'exit)
   (recursive-edit))
+
+;; get-opts
+(when (get-command-line-option "--help")
+  (usage)
+  (throw 'quit 0))
+
+(when (get-command-line-option "--logout")
+  (if logout-cmd
+      (progn
+	(system (concat logout-cmd " &"))
+	(throw 'quit 0))
+    (write standard-output "No command for logout set."))
+    (throw 'quit 1))
+
+(when (get-command-line-option "--reboot")
+  (if reboot-cmd
+      (progn
+	(system (concat reboot-cmd " &"))
+	(throw 'quit 0))
+    (write standard-output "No command for reboot set."))
+    (throw 'quit 1))
+
+(when (get-command-line-option "--shutdown")
+  (if shutdown-cmd
+      (progn
+	(system (concat shutdown-cmd " &"))
+	(throw 'quit 0))
+    (write standard-output "No command for shutdown set."))
+    (throw 'quit 1))
+
+(when (get-command-line-option "--lockdown")
+  (if lockdown-cmd
+      (progn
+	(system (concat lockdown-cmd " &"))
+	(throw 'quit 0))
+    (write standard-output "No command for lockdown set."))
+    (throw 'quit 1))
+
+(when (get-command-line-option "--suspend")
+  (if suspend-cmd
+      (progn
+	(system (concat suspend-cmd " &"))
+	(throw 'quit 0))
+    (write standard-output "No command for suspend set."))
+    (throw 'quit 1))
+
+(when (get-command-line-option "--hibernate")
+  (if hibernate-cmd
+      (progn
+	(system (concat hibernate-cmd " &"))
+	(throw 'quit 0))
+    (write standard-output "No command for hibernate set."))
+    (throw 'quit 1))
+
+(main)
