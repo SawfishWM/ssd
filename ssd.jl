@@ -29,7 +29,7 @@ where OPT is one of:
   ;; init widgets
   (define swindow (gtk-window-new 'toplevel))
   (gtk-container-set-border-width swindow 10)
-  (gtk-window-set-title swindow "Sawfish-Session-Dialog")
+  (gtk-window-set-title swindow "SSD Setup")
   (gtk-window-set-wmclass swindow "SSD Setup" "ssd setup")
   (gtk-window-set-position swindow 'center)
   (gtk-window-set-icon-from-file swindow "icons/ssd.png")
