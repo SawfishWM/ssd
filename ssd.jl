@@ -302,6 +302,7 @@ where OPT is one of:
   (cond
     ((getenv "KDE_FULL_SESSION") (copy-file "presets/kde4" "~/.ssdrc")
 				 (write standard-output "KDE4 detected."))
+    ;; XXX distinguis GNOME2 and GNOME3??
     ((getenv "GNOME_DESKTOP_SESSION_ID") (copy-file "presets/gnome2" "~/.ssdrc")
 					 (write standard-output "GNOME2 detected."))
     ((get-x-property 'root '_DT_SAVE_MODE) (copy-file "presets/xfce4" "~/.ssdrc")
