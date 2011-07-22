@@ -1,1 +1,7 @@
-0.10: initial release
+0.20: "The Eigth Note"
+	- new option: --kde4
+	- new option: --gnome2
+	- new option: --xfce4
+
+0.10: "Jumping Time"
+	- initial release
