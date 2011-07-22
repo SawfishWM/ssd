@@ -3,9 +3,11 @@ all:
 install:
 	mkdir -p $(DESTDIR)@PREFIX@/bin
 	mkdir -p $(DESTDIR)@PREFIX@/share/sawfish/ssd/icons
+	mkdir -p $(DESTDIR)@PREFIX@/share/sawfish/ssd/presets
 	install -m755 wrapper $(DESTDIR)@PREFIX@/bin/ssd
 	install -m644 ssd.jl $(DESTDIR)@PREFIX@/share/sawfish/ssd/
 	install -m644 icons/*.png $(DESTDIR)@PREFIX@/share/sawfish/ssd/icons/
+	install -m644 presets/* $(DESTDIR)@PREFIX@/share/sawfish/ssd/presets
 
 clean:
 	rm wrapper
