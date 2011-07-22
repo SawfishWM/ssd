@@ -1,6 +1,8 @@
 ;; Sawfish-Session-Dialog configuration
 
-(defvar-setq logout-cmd "qdbus org.kde.ksmserver /KSMServer org.kde.KSMServerInterface.logout 1 0 -1")
-(defvar-setq reboot-cmd "qdbus org.kde.ksmserver /KSMServer org.kde.KSMServerInterface.logout 1 1 -1")
-(defvar-setq shutdown-cmd "qdbus org.kde.ksmserver /KSMServer org.kde.KSMServerInterface.logout 1 2 -1")
-(defvar-setq lockdown-cmd "qdbus org.kde.krunner /ScreenSaver Lock")
+(defvar-setq logout-cmd "xfce4-session-logout --logout")
+(defvar-setq reboot-cmd "xfce4-session-logout --reboot")
+(defvar-setq shutdown-cmd "xfce4-session-logout --halt")
+(defvar-setq lockdown-cmd "xflock4")
+(defvar-setq suspend-cmd "xfce4-session-logout --suspend")
+(defvar-setq hibernate-cmd "xfce4-session-logout --hibernate")
