@@ -1,0 +1,6 @@
+;; Sawfish-Session-Dialog configuration
+
+(defvar-setq logout-cmd "gnome-session-save --logout-dialog")
+(defvar-setq reboot-cmd "gnome-session-save --shutdown-dialog")
+(defvar-setq shutdown-cmd "gnome-session-save --shutdown-dialog")
+(defvar-setq lockdown-cmd "gnome-screensaver-command -l")

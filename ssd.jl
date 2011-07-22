@@ -23,7 +23,10 @@ where OPT is one of:
 	--lockdown      Lockdown display
 	--suspend       Suspend machine (suspend to RAM)
 	--hibernate     Hibernate machine (suspend to disk)
-	--setup         Configure commands\n"))
+	--kde4		Use KDE4 commands
+	--gnome2	Use GNOME2 commands
+	--xfce4		Use XFCE4 commands
+	--setup         Use customized commands\n"))
 
 (define (setup from-ui)
   ;; init widgets
@@ -292,6 +295,18 @@ where OPT is one of:
 (when (get-command-line-option "--setup")
   (setup nil)
   (throw 'quit 0))
+
+(when (get-command-line-option "--kde4")
+  (copy-file "presets/kde4" "~/.ssdrc")
+  (load "~/.ssdrc" t t t))
+
+(when (get-command-line-option "--gnome2")
+  (copy-file "presets/gnome2" "~/.ssdrc")
+  (load "~/.ssdrc" t t t))
+
+(when (get-command-line-option "--xfce4")
+  (copy-file "presets/xfce4" "~/.ssdrc")
+  (load "~/.ssdrc" t t t))
 
 (when (get-command-line-option "--logout")
   (if (not-empty logout-cmd)
