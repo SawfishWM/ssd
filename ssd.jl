@@ -26,7 +26,8 @@ where OPT is one of:
 	--kde4		Use KDE4 commands
 	--gnome2	Use GNOME2 commands
 	--xfce4		Use XFCE4 commands
-	--setup         Use customized commands\n"))
+	--setup         Use customized commands
+	--detect	Try to detect running desktop-environment\n"))
 
 (define (setup from-ui)
   ;; init widgets
@@ -296,6 +297,15 @@ where OPT is one of:
 
 (when (get-command-line-option "--xfce4")
   (copy-file "presets/xfce4" "~/.ssdrc"))
+
+(when (get-command-line-option "--detect")
+  (cond
+    ((getenv "KDE_FULL_SESSION") (copy-file "presets/kde4" "~/.ssdrc")
+				 (write standard-output "KDE4 detected."))
+    ((getenv "GNOME_DESKTOP_SESSION_ID") (copy-file "presets/gnome2" "~/.ssdrc")
+					 (write standard-output "GNOME2 detected."))
+    ((get-x-property 'root '_DT_SAVE_MODE) (copy-file "presets/xfce4" "~/.ssdrc")
+					   (write standard-output "XFCE4 detected."))))
 
 (when (file-exists-p "~/.ssdrc")
   (load "~/.ssdrc" t t t))

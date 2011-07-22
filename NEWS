@@ -1,7 +1,8 @@
 0.20: "The Eigth Note"
-	- new option: --kde4
-	- new option: --gnome2
-	- new option: --xfce4
+	- new option: --kde4 (use commands for KDE4)
+	- new option: --gnome2 (use commands for GNOME2)
+	- new option: --xfce4 (use commands for XFCE4)
+	- new option: --detect (try to detect KDE4/GNOME2/XFCE4)
 
 0.10: "Jumping Time"
 	- initial release
