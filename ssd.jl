@@ -164,10 +164,6 @@ where OPT is one of:
 (define suspend-cmd)
 (define hibernate-cmd)
 
-;; load config-file
-(when (file-exists-p "~/.ssdrc")
-  (load "~/.ssdrc" t t t))
-
 ;; make sure images are shown
 (gtk-rc-parse-string "gtk-button-images = 1")
 
@@ -292,21 +288,21 @@ where OPT is one of:
   (usage)
   (throw 'quit 0))
 
+(when (get-command-line-option "--kde4")
+  (copy-file "presets/kde4" "~/.ssdrc"))
+
+(when (get-command-line-option "--gnome2")
+  (copy-file "presets/gnome2" "~/.ssdrc"))
+
+(when (get-command-line-option "--xfce4")
+  (copy-file "presets/xfce4" "~/.ssdrc"))
+
+(when (file-exists-p "~/.ssdrc")
+  (load "~/.ssdrc" t t t))
+
 (when (get-command-line-option "--setup")
   (setup nil)
   (throw 'quit 0))
-
-(when (get-command-line-option "--kde4")
-  (copy-file "presets/kde4" "~/.ssdrc")
-  (load "~/.ssdrc" t t t))
-
-(when (get-command-line-option "--gnome2")
-  (copy-file "presets/gnome2" "~/.ssdrc")
-  (load "~/.ssdrc" t t t))
-
-(when (get-command-line-option "--xfce4")
-  (copy-file "presets/xfce4" "~/.ssdrc")
-  (load "~/.ssdrc" t t t))
 
 (when (get-command-line-option "--logout")
   (if (not-empty logout-cmd)
