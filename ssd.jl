@@ -127,7 +127,9 @@ where OPT is one of:
 				    (gtk-entry-get-text lockdown-entry)
 				    (gtk-entry-get-text suspend-entry)
 				    (gtk-entry-get-text hibernate-entry))
-	(close-file file))))
+	(close-file file)))
+      (when (file-exists-p "~/.ssdrc")
+        (load "~/.ssdrc" t t t)))
 
   (if from-ui
       (g-signal-connect do-save "pressed"
