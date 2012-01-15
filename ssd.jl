@@ -169,9 +169,6 @@ where OPT is one of:
 (define suspend-cmd)
 (define hibernate-cmd)
 
-;; make sure images are shown
-(gtk-rc-parse-string "gtk-button-images = 1")
-
 (define (main)
   
   ;; init widgets
@@ -301,6 +298,12 @@ where OPT is one of:
 
 (when (get-command-line-option "--xfce4")
   (copy-file "presets/xfce4" "~/.ssdrc"))
+
+(when (get-command-line-option "--mate")
+  (copy-file "presets/mate" "~/.ssdrc"))
+
+(when (get-command-line-option "--razor")
+  (copy-file "presets/razor" "~/.ssdrc"))
 
 (when (get-command-line-option "--detect")
   (cond
