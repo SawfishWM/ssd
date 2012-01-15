@@ -1,0 +1,6 @@
+;; Sawfish-Session-Dialog configuration
+
+(defvar-setq logout-cmd "mate-session-save --logout-dialog")
+(defvar-setq reboot-cmd "mate-session-save --shutdown-dialog")
+(defvar-setq shutdown-cmd "mate-session-save --shutdown-dialog")
+(defvar-setq lockdown-cmd "mate-screensaver-command -l")

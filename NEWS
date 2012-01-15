@@ -1,3 +1,10 @@
+0.30: "Drum Machine"
+	- re-load configuration after saving (so changes apply immediately now)
+	- fixed detection of XFCE4 (use sawfish-client)
+	- new option: --razor (use commands for Razor-Qt)
+	- new option: --mate (use commands for MATE)
+	- add hibernate and suspend commands to KDE4-preset
+
 0.20: "The Eigth Note"
 	- new option: --kde4 (use commands for KDE4)
 	- new option: --gnome2 (use commands for GNOME2)

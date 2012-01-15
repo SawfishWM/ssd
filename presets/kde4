@@ -3,4 +3,6 @@
 (defvar-setq logout-cmd "qdbus org.kde.ksmserver /KSMServer org.kde.KSMServerInterface.logout 1 0 -1")
 (defvar-setq reboot-cmd "qdbus org.kde.ksmserver /KSMServer org.kde.KSMServerInterface.logout 1 1 -1")
 (defvar-setq shutdown-cmd "qdbus org.kde.ksmserver /KSMServer org.kde.KSMServerInterface.logout 1 2 -1")
+(defvar-setq suspend-cmd "qdbus org.kde.kded /org/freedesktop/PowerManagement Suspend")
+(defvar-setq hibernate-cmd "qdbus org.kde.kded /org/freedesktop/PowerManagement Hibernate")
 (defvar-setq lockdown-cmd "qdbus org.kde.krunner /ScreenSaver Lock")

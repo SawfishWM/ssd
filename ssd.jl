@@ -26,6 +26,8 @@ where OPT is one of:
 	--kde4		Use KDE4 commands
 	--gnome2	Use GNOME2 commands
 	--xfce4		Use XFCE4 commands
+	--mate		Use MATE commands
+	--razor		Use Razor-Qt commands
 	--setup         Use customized commands
 	--detect	Try to detect running desktop-environment\n"))
 
@@ -307,9 +309,15 @@ where OPT is one of:
     ;; XXX distinguis GNOME2 and GNOME3??
     ((getenv "GNOME_DESKTOP_SESSION_ID") (copy-file "presets/gnome2" "~/.ssdrc")
 					 (write standard-output "GNOME2 detected."))
-    ((system ("sawfish-client -e \"(get-x-property 'root '_DT_SAVE_MODE)\"")
+    ((getenv "MATE_DESKTOP_SESSION_ID") (copy-file "presets/mate" "~/.ssdrc")
+					 (write standard-output "MATE detected."))
+    ((system "sawfish-client -e \"(get-window-by-class \\\"Razor-desktop\\\" #:regex t)\" >/dev/null &")
+		(copy-file "presets/razor" "~/.ssdrc")
+		(write standard-output "Razor-Qt detected.\n"))
+    ((system "sawfish-client -e \"(get-x-property 'root '_DT_SAVE_MODE)\" >/dev/null &")
 		(copy-file "presets/xfce4" "~/.ssdrc")
-		(write standard-output "XFCE4 detected.")))))
+		(write standard-output "XFCE4 detected.\n")))
+  (throw 'quit 0))
 
 (when (file-exists-p "~/.ssdrc")
   (load "~/.ssdrc" t t t))
