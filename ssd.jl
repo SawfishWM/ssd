@@ -42,6 +42,7 @@ where OPT is one of:
 
   (define do-save (gtk-button-new-from-stock "gtk-save"))
   (define do-clear (gtk-button-new-from-stock "gtk-clear"))
+  (define do-quit (gtk-button-new-from-stock "gtk-cancel"))
 
   (define vbox (gtk-vbox-new nil 2))
   (gtk-container-add swindow vbox)
@@ -106,12 +107,19 @@ where OPT is one of:
   (gtk-box-pack-start vbox button-box)
   (gtk-box-pack-start button-box do-clear)
   (gtk-box-pack-start button-box do-save)
+  (gtk-box-pack-start button-box do-quit)
 
   ;; connect signals
   (if from-ui
       (g-signal-connect swindow "delete_event"
         (lambda (w) (gtk-widget-destroy swindow)))
     (g-signal-connect swindow "delete_event"
+      (lambda (w) (throw 'quit 0))))
+
+  (if from-ui
+      (g-signal-connect do-quit "pressed"
+	(lambda (w) (gtk-widget-destroy swindow)))
+    (g-signal-connect do-quit "pressed"
       (lambda (w) (throw 'quit 0))))
 
   (define (save-config)

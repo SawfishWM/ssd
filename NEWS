@@ -6,6 +6,7 @@
 	- add hibernate and suspend commands to KDE4-preset
 	- don't start dialog when --detect was given
 	- fixed forcing to show icons on buttons
+	- add abort-button to settings editor (close without saving)
 
 0.20: "The Eigth Note"
 	- new option: --kde4 (use commands for KDE4)
