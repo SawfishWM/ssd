@@ -307,8 +307,9 @@ where OPT is one of:
     ;; XXX distinguis GNOME2 and GNOME3??
     ((getenv "GNOME_DESKTOP_SESSION_ID") (copy-file "presets/gnome2" "~/.ssdrc")
 					 (write standard-output "GNOME2 detected."))
-    ((get-x-property 'root '_DT_SAVE_MODE) (copy-file "presets/xfce4" "~/.ssdrc")
-					   (write standard-output "XFCE4 detected."))))
+    ((system ("sawfish-client -e \"(get-x-property 'root '_DT_SAVE_MODE)\"")
+		(copy-file "presets/xfce4" "~/.ssdrc")
+		(write standard-output "XFCE4 detected.")))))
 
 (when (file-exists-p "~/.ssdrc")
   (load "~/.ssdrc" t t t))
