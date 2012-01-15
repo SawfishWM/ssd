@@ -5,7 +5,7 @@
 	- new option: --mate (use commands for MATE)
 	- add hibernate and suspend commands to KDE4-preset
 	- don't start dialog when --detect was given
-	- remove call to gtk-rc-parse (not working)
+	- fixed forcing to show icons on buttons
 
 0.20: "The Eigth Note"
 	- new option: --kde4 (use commands for KDE4)

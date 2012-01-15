@@ -152,6 +152,9 @@ where OPT is one of:
 
   (gtk-widget-show-all swindow)
 
+  ;; force showing icons
+  (gtk-rc-parse-string "gtk-button-images = 1")
+
   (unless from-ui
     (setq interrupt-mode 'exit)
     (recursive-edit)))
@@ -281,6 +284,9 @@ where OPT is one of:
     (gtk-widget-set-sensitive do-hibernate nil))
 
   (gtk-widget-show-all window)
+
+  ;; force showing icons
+  (gtk-rc-parse-string "gtk-button-images = 1")
 
   (setq interrupt-mode 'exit)
   (recursive-edit))
