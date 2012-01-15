@@ -296,6 +296,9 @@ where OPT is one of:
   ;; force showing icons
   (gtk-rc-parse-string "gtk-button-images = 1")
 
+  (gtk-window-set-decorated window nil)
+  (gtk-window-set-position window 'center-always)
+
   (setq interrupt-mode 'exit)
   (recursive-edit))
 
