@@ -3,6 +3,8 @@
 	- fixed detection of XFCE4 (use sawfish-client)
 	- new option: --razor (use commands for Razor-Qt)
 	- new option: --mate (use commands for MATE)
+	- add detection of MATE (getenv)
+	- add detection of Razor-Qt (sawfish-client)
 	- add hibernate and suspend commands to KDE4-preset
 	- don't start dialog when --detect was given
 	- fixed forcing to show icons on buttons
