@@ -40,9 +40,14 @@ where OPT is one of:
   (gtk-window-set-position swindow 'center)
   (gtk-window-set-icon-from-file swindow "icons/ssd.png")
 
-  (define do-save (gtk-button-new-from-stock "gtk-save"))
-  (define do-clear (gtk-button-new-from-stock "gtk-clear"))
-  (define do-quit (gtk-button-new-from-stock "gtk-cancel"))
+  (define do-save (gtk-button-new-with-label "Save"))
+  (gtk-button-set-relief do-save 'none)
+
+  (define do-clear (gtk-button-new-with-label "Clear"))
+  (gtk-button-set-relief do-clear 'none)
+
+  (define do-quit (gtk-button-new-with-label "Cancel"))
+  (gtk-button-set-relief do-quit 'none)
 
   (define vbox (gtk-vbox-new nil 2))
   (gtk-container-add swindow vbox)
@@ -53,6 +58,7 @@ where OPT is one of:
   (gtk-box-pack-start logout-box logout-label)
   (gtk-box-pack-start logout-box logout-entry)
   (gtk-box-pack-start vbox logout-box)
+  (gtk-box-set-homogeneous logout-box t)
   (when logout-cmd
     (gtk-entry-set-text logout-entry logout-cmd))
 
@@ -62,6 +68,7 @@ where OPT is one of:
   (gtk-box-pack-start reboot-box reboot-label)
   (gtk-box-pack-start reboot-box reboot-entry)
   (gtk-box-pack-start vbox reboot-box)
+  (gtk-box-set-homogeneous reboot-box t)
   (when reboot-cmd
     (gtk-entry-set-text reboot-entry reboot-cmd))
 
@@ -71,6 +78,7 @@ where OPT is one of:
   (gtk-box-pack-start shutdown-box shutdown-label)
   (gtk-box-pack-start shutdown-box shutdown-entry)
   (gtk-box-pack-start vbox shutdown-box)
+  (gtk-box-set-homogeneous shutdown-box t)
   (when shutdown-cmd
     (gtk-entry-set-text shutdown-entry shutdown-cmd))
 
@@ -80,6 +88,7 @@ where OPT is one of:
   (gtk-box-pack-start lockdown-box lockdown-label)
   (gtk-box-pack-start lockdown-box lockdown-entry)
   (gtk-box-pack-start vbox lockdown-box)
+  (gtk-box-set-homogeneous lockdown-box t)
   (when lockdown-cmd
     (gtk-entry-set-text lockdown-entry lockdown-cmd))
 
@@ -89,6 +98,7 @@ where OPT is one of:
   (gtk-box-pack-start suspend-box suspend-label)
   (gtk-box-pack-start suspend-box suspend-entry)
   (gtk-box-pack-start vbox suspend-box)
+  (gtk-box-set-homogeneous suspend-box t)
   (when suspend-cmd
     (gtk-entry-set-text suspend-entry suspend-cmd))
 
@@ -98,6 +108,7 @@ where OPT is one of:
   (gtk-box-pack-start hibernate-box hibernate-label)
   (gtk-box-pack-start hibernate-box hibernate-entry)
   (gtk-box-pack-start vbox hibernate-box)
+  (gtk-box-set-homogeneous hibernate-box t)
   (when hibernate-cmd
     (gtk-entry-set-text hibernate-entry hibernate-cmd))
 
@@ -181,7 +192,7 @@ where OPT is one of:
 (define hibernate-cmd)
 
 (define (main)
-  
+
   ;; init widgets
   (define window (gtk-window-new 'toplevel))
   (gtk-container-set-border-width window 10)
@@ -191,32 +202,41 @@ where OPT is one of:
   (gtk-window-set-position window 'center)
   (gtk-window-set-icon-from-file window "icons/ssd.png")
 
-  (define do-exit (gtk-button-new-from-stock "gtk-close"))
-  (define do-edit (gtk-button-new-from-stock "gtk-edit"))
+  (define do-exit (gtk-button-new-with-label "Exit"))
+  (gtk-button-set-relief do-exit 'none)
+
+  (define do-edit (gtk-button-new-with-label "Settings"))
+  (gtk-button-set-relief do-edit 'none)
 
   (define do-logout (gtk-button-new-with-label "Logout"))
   (define img-logout (gtk-image-new-from-file "icons/logout.png"))
   (gtk-button-set-image do-logout img-logout)
+  (gtk-button-set-relief do-logout 'none)
 
   (define do-reboot (gtk-button-new-with-label "Reboot"))
   (define img-reboot (gtk-image-new-from-file "icons/reboot.png"))
   (gtk-button-set-image do-reboot img-reboot)
+  (gtk-button-set-relief do-reboot 'none)
 
   (define do-shutdown (gtk-button-new-with-label "Shutdown"))
   (define img-shutdown (gtk-image-new-from-file "icons/shutdown.png"))
   (gtk-button-set-image do-shutdown img-shutdown)
+  (gtk-button-set-relief do-shutdown 'none)
 
   (define do-lockdown (gtk-button-new-with-label "Lockdown"))
   (define img-lockdown (gtk-image-new-from-file "icons/lock.png"))
   (gtk-button-set-image do-lockdown img-lockdown)
+  (gtk-button-set-relief do-lockdown 'none)
 
   (define do-suspend (gtk-button-new-with-label "Suspend"))
   (define img-suspend (gtk-image-new-from-file "icons/suspend.png"))
   (gtk-button-set-image do-suspend img-suspend)
+  (gtk-button-set-relief do-suspend 'none)
 
   (define do-hibernate (gtk-button-new-with-label "Hibernate"))
   (define img-hibernate (gtk-image-new-from-file "icons/hibernate.png"))
   (gtk-button-set-image do-hibernate img-hibernate)
+  (gtk-button-set-relief do-hibernate 'none)
 
   (define vbox (gtk-vbox-new t 2))
 
