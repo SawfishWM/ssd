@@ -1,3 +1,6 @@
+0.40: "E=NC²"
+	- small UI improvements
+
 0.30: "Drum Machine"
 	- re-load configuration after saving (so changes apply immediately now)
 	- fixed detection of XFCE4 (use sawfish-client)
