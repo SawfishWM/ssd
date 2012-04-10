@@ -1,5 +1,6 @@
 0.40: "E=NC²"
-	- small UI improvements
+	- UI improvements
+	- Support for Switch User action
 
 0.30: "Drum Machine"
 	- re-load configuration after saving (so changes apply immediately now)

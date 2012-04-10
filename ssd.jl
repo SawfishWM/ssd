@@ -1,7 +1,7 @@
 ;;
 ;; ssd.jl - Sawfis-Session-Dialog
 ;;
-;; (c) 2011 Christopher Roy Bratusek <nano@tuxfamily.org>
+;; (c) 2011,2012 Christopher Roy Bratusek <nano@tuxfamily.org>
 ;;
 ;; licensed under GNU GPL v2+
 ;;
@@ -23,6 +23,7 @@ where OPT is one of:
 	--lockdown      Lockdown display
 	--suspend       Suspend machine (suspend to RAM)
 	--hibernate     Hibernate machine (suspend to disk)
+        --userswitch    Switch User
 	--kde4		Use KDE4 commands
 	--gnome2	Use GNOME2 commands
 	--xfce4		Use XFCE4 commands
@@ -112,6 +113,16 @@ where OPT is one of:
   (when hibernate-cmd
     (gtk-entry-set-text hibernate-entry hibernate-cmd))
 
+  (define userswitch-box (gtk-hbox-new nil 2))
+  (define userswitch-label (gtk-label-new "Hibernate command:"))
+  (define userswitch-entry (gtk-entry-new))
+  (gtk-box-pack-start userswitch-box userswitch-label)
+  (gtk-box-pack-start userswitch-box userswitch-entry)
+  (gtk-box-pack-start vbox userswitch-box)
+  (gtk-box-set-homogeneous userswitch-box t)
+  (when userswitch-cmd
+    (gtk-entry-set-text userswitch-entry userswitch-cmd))
+
   (define button-box (gtk-hbutton-box-new))
   (gtk-button-box-set-layout button-box 'center)
 
@@ -142,12 +153,14 @@ where OPT is one of:
 (defvar-setq shutdown-cmd \"%s\")
 (defvar-setq lockdown-cmd \"%s\")
 (defvar-setq suspend-cmd \"%s\")
-(defvar-setq hibernate-cmd \"%s\")" (gtk-entry-get-text logout-entry)
-                                    (gtk-entry-get-text reboot-entry)
-				    (gtk-entry-get-text shutdown-entry)
-				    (gtk-entry-get-text lockdown-entry)
-				    (gtk-entry-get-text suspend-entry)
-				    (gtk-entry-get-text hibernate-entry))
+(defvar-setq hibernate-cmd \"%s\")
+(defvar-setq userswitch-cdm \"%s\")" (gtk-entry-get-text logout-entry)
+                                     (gtk-entry-get-text reboot-entry)
+				     (gtk-entry-get-text shutdown-entry)
+				     (gtk-entry-get-text lockdown-entry)
+				     (gtk-entry-get-text suspend-entry)
+				     (gtk-entry-get-text hibernate-entry)
+                                     (gtk-entry-get-text userwitch-entry))
 	(close-file file)))
       (when (file-exists-p "~/.ssdrc")
         (load "~/.ssdrc" t t t)))
@@ -167,7 +180,8 @@ where OPT is one of:
       (gtk-entry-set-text shutdown-entry "")
       (gtk-entry-set-text lockdown-entry "")
       (gtk-entry-set-text suspend-entry "")
-      (gtk-entry-set-text hibernate-entry "")))
+      (gtk-entry-set-text hibernate-entry "")
+      (gtk-entry-set-text userswitch-entry "")))
 
   (gtk-widget-show-all swindow)
 
@@ -190,6 +204,7 @@ where OPT is one of:
 (define lockdown-cmd)
 (define suspend-cmd)
 (define hibernate-cmd)
+(define userswitch-cmd)
 
 (define (main)
 
@@ -208,35 +223,47 @@ where OPT is one of:
   (define do-edit (gtk-button-new-with-label "Settings"))
   (gtk-button-set-relief do-edit 'none)
 
-  (define do-logout (gtk-button-new-with-label "Logout"))
+  (define do-logout (gtk-button-new-with-label "Logout Session"))
   (define img-logout (gtk-image-new-from-file "icons/logout.png"))
   (gtk-button-set-image do-logout img-logout)
+  (gtk-button-set-image-position do-logout 'top)
   (gtk-button-set-relief do-logout 'none)
 
-  (define do-reboot (gtk-button-new-with-label "Reboot"))
+  (define do-reboot (gtk-button-new-with-label "Reboot PC"))
   (define img-reboot (gtk-image-new-from-file "icons/reboot.png"))
   (gtk-button-set-image do-reboot img-reboot)
+  (gtk-button-set-image-position do-reboot 'top)
   (gtk-button-set-relief do-reboot 'none)
 
-  (define do-shutdown (gtk-button-new-with-label "Shutdown"))
+  (define do-shutdown (gtk-button-new-with-label "Shutdown PC"))
   (define img-shutdown (gtk-image-new-from-file "icons/shutdown.png"))
   (gtk-button-set-image do-shutdown img-shutdown)
+  (gtk-button-set-image-position do-shutdown 'top)
   (gtk-button-set-relief do-shutdown 'none)
 
-  (define do-lockdown (gtk-button-new-with-label "Lockdown"))
+  (define do-lockdown (gtk-button-new-with-label "Lock Screen"))
   (define img-lockdown (gtk-image-new-from-file "icons/lock.png"))
   (gtk-button-set-image do-lockdown img-lockdown)
+  (gtk-button-set-image-position do-lockdown 'top)
   (gtk-button-set-relief do-lockdown 'none)
 
-  (define do-suspend (gtk-button-new-with-label "Suspend"))
+  (define do-suspend (gtk-button-new-with-label "Suspend PC"))
   (define img-suspend (gtk-image-new-from-file "icons/suspend.png"))
   (gtk-button-set-image do-suspend img-suspend)
+  (gtk-button-set-image-position do-suspend 'top)
   (gtk-button-set-relief do-suspend 'none)
 
-  (define do-hibernate (gtk-button-new-with-label "Hibernate"))
+  (define do-hibernate (gtk-button-new-with-label "Hibernate PC"))
   (define img-hibernate (gtk-image-new-from-file "icons/hibernate.png"))
   (gtk-button-set-image do-hibernate img-hibernate)
+  (gtk-button-set-image-position do-hibernate 'top)
   (gtk-button-set-relief do-hibernate 'none)
+
+  (define do-userswitch (gtk-button-new-with-label "Switch User"))
+  (define img-userswitch (gtk-image-new-from-file "icons/userswitch.png"))
+  (gtk-button-set-image do-userswitch img-userswitch)
+  (gtk-button-set-image-position do-userswitch 'top)
+  (gtk-button-set-relief do-userswitch 'none)
 
   (define vbox (gtk-vbox-new t 2))
 
@@ -260,6 +287,7 @@ where OPT is one of:
   (gtk-box-pack-start middle-button-box do-lockdown)
   (gtk-box-pack-start middle-button-box do-suspend)
   (gtk-box-pack-start middle-button-box do-hibernate)
+  (gtk-box-pack-start middle-button-box do-userswitch)
 
   (gtk-box-pack-start vbox bottom-button-box)
   (gtk-box-pack-start bottom-button-box do-edit)
@@ -311,6 +339,12 @@ where OPT is one of:
 	           (throw 'quit 0)))
     (gtk-widget-set-sensitive do-hibernate nil))
 
+  (if (not-empty userswitch-cmd)
+      (g-signal-connect do-userswitch "pressed"
+	(lambda () (system (concat userswitch-cmd " &"))
+	           (throw 'quit 0)))
+    (gtk-widget-set-sensitive do-userswitch nil))
+
   (gtk-widget-show-all window)
 
   ;; force showing icons
@@ -346,15 +380,15 @@ where OPT is one of:
   (cond
     ((getenv "KDE_FULL_SESSION") (copy-file "presets/kde4" "~/.ssdrc")
 				 (write standard-output "KDE4 detected."))
-    ;; XXX distinguis GNOME2 and GNOME3??
+    ;; XXX distinguish GNOME2 and GNOME3??
     ((getenv "GNOME_DESKTOP_SESSION_ID") (copy-file "presets/gnome2" "~/.ssdrc")
 					 (write standard-output "GNOME2 detected."))
     ((getenv "MATE_DESKTOP_SESSION_ID") (copy-file "presets/mate" "~/.ssdrc")
 					 (write standard-output "MATE detected."))
-    ((system "sawfish-client -e \"(get-window-by-class \\\"Razor-desktop\\\" #:regex t)\" >/dev/null &")
+    ((equal (getenv "XDG_CURRENT_DESKTOP") "Razor")
 		(copy-file "presets/razor" "~/.ssdrc")
 		(write standard-output "Razor-Qt detected.\n"))
-    ((system "sawfish-client -e \"(get-x-property 'root '_DT_SAVE_MODE)\" >/dev/null &")
+    ((equal (getenv "XDG_CURRENT_DESKTOP") "XFCE")
 		(copy-file "presets/xfce4" "~/.ssdrc")
 		(write standard-output "XFCE4 detected.\n")))
   (throw 'quit 0))
@@ -412,6 +446,14 @@ where OPT is one of:
 	(system (concat hibernate-cmd " &"))
 	(throw 'quit 0))
     (write standard-output "No command for hibernate set.\n"))
+    (throw 'quit 1))
+
+(when (get-command-line-option "--userswitch")
+  (if (not-empty userswitch-cmd)
+      (progn
+	(system (concat userswitch-cmd " &"))
+	(throw 'quit 0))
+    (write standard-output "No command for userswitch set.\n"))
     (throw 'quit 1))
 
 (main)
