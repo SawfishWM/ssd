@@ -1,7 +1,7 @@
 ;; Sawfish-Session-Dialog configuration
 
-(defvar-setq logout-cmd "razor-power --logout")
-(defvar-setq reboot-cmd "razor-power --reboot")
-(defvar-setq shutdown-cmd "razor-power --shutdown")
-(defvar-setq hibernate-cmd "razor-power --hibernate")
-(defvar-setq suspend-cmd "razor-power --suspend")
+(defvar-setq logout-cmd "razor-power logout")
+(defvar-setq reboot-cmd "razor-power reboot")
+(defvar-setq shutdown-cmd "razor-power shutdown")
+(defvar-setq hibernate-cmd "razor-power hibernate")
+(defvar-setq suspend-cmd "razor-power suspend")
