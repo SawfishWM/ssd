@@ -154,7 +154,7 @@ where OPT is one of:
 (defvar-setq lockdown-cmd \"%s\")
 (defvar-setq suspend-cmd \"%s\")
 (defvar-setq hibernate-cmd \"%s\")
-(defvar-setq userswitch-cdm \"%s\")" (gtk-entry-get-text logout-entry)
+(defvar-setq userswitch-cmd \"%s\")" (gtk-entry-get-text logout-entry)
                                      (gtk-entry-get-text reboot-entry)
 				     (gtk-entry-get-text shutdown-entry)
 				     (gtk-entry-get-text lockdown-entry)

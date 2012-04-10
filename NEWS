@@ -1,6 +1,8 @@
 0.40: "E=NC²"
 	- UI improvements
 	- Support for Switch User action
+	- Desktop detection for XFCE/Razor-Qt no longer
+	  requires a running Sawfish instance
 
 0.30: "Drum Machine"
 	- re-load configuration after saving (so changes apply immediately now)
