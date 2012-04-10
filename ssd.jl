@@ -258,9 +258,13 @@ where OPT is one of:
   (gtk-window-set-icon-from-file window "icons/ssd.png")
 
   (define do-exit (gtk-button-new-with-label "Exit"))
+  (define img-exit (gtk-image-new-from-file "icons/exit.png"))
+  (gtk-button-set-image do-exit img-exit)
   (gtk-button-set-relief do-exit 'none)
 
   (define do-edit (gtk-button-new-with-label "Settings"))
+  (define img-edit (gtk-image-new-from-file "icons/settings.png"))
+  (gtk-button-set-image do-edit img-edit)
   (gtk-button-set-relief do-edit 'none)
 
   (define do-logout (gtk-button-new-with-label "Logout Session"))
