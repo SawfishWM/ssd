@@ -114,7 +114,7 @@ where OPT is one of:
     (gtk-entry-set-text hibernate-entry hibernate-cmd))
 
   (define userswitch-box (gtk-hbox-new nil 2))
-  (define userswitch-label (gtk-label-new "Hibernate command:"))
+  (define userswitch-label (gtk-label-new "Switch User command:"))
   (define userswitch-entry (gtk-entry-new))
   (gtk-box-pack-start userswitch-box userswitch-label)
   (gtk-box-pack-start userswitch-box userswitch-entry)
