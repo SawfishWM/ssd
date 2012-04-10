@@ -4,6 +4,7 @@
 	- Desktop detection for XFCE/Razor-Qt no longer
 	  requires a running Sawfish instance
 	- fix preset commands for Razor-Qt
+	- SSD Setup now offers 'detect' button
 
 0.30: "Drum Machine"
 	- re-load configuration after saving (so changes apply immediately now)

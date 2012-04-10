@@ -11,6 +11,22 @@
 (require 'rep.io.files)
 (require 'gui.gtk-2.gtk)
 
+(define (detect-de)
+  (cond
+    ((getenv "KDE_FULL_SESSION") (copy-file "presets/kde4" "~/.ssdrc")
+				 (write standard-output "KDE4 detected."))
+    ;; XXX distinguish GNOME2 and GNOME3??
+    ((getenv "GNOME_DESKTOP_SESSION_ID") (copy-file "presets/gnome2" "~/.ssdrc")
+					 (write standard-output "GNOME2 detected."))
+    ((getenv "MATE_DESKTOP_SESSION_ID") (copy-file "presets/mate" "~/.ssdrc")
+					 (write standard-output "MATE detected."))
+    ((equal (getenv "XDG_CURRENT_DESKTOP") "Razor")
+		(copy-file "presets/razor" "~/.ssdrc")
+		(write standard-output "Razor-Qt detected.\n"))
+    ((equal (getenv "XDG_CURRENT_DESKTOP") "XFCE")
+		(copy-file "presets/xfce4" "~/.ssdrc")
+		(write standard-output "XFCE4 detected.\n"))))
+
 (define (usage)
   (write standard-output "\
 usage: ssd OPT
@@ -43,6 +59,9 @@ where OPT is one of:
 
   (define do-save (gtk-button-new-with-label "Save"))
   (gtk-button-set-relief do-save 'none)
+
+  (define do-detect (gtk-button-new-with-label "Detect"))
+  (gtk-button-set-relief do-detect 'none)
 
   (define do-clear (gtk-button-new-with-label "Clear"))
   (gtk-button-set-relief do-clear 'none)
@@ -129,6 +148,7 @@ where OPT is one of:
   (gtk-box-pack-start vbox button-box)
   (gtk-box-pack-start button-box do-clear)
   (gtk-box-pack-start button-box do-save)
+  (gtk-box-pack-start button-box do-detect)
   (gtk-box-pack-start button-box do-quit)
 
   ;; connect signals
@@ -182,6 +202,26 @@ where OPT is one of:
       (gtk-entry-set-text suspend-entry "")
       (gtk-entry-set-text hibernate-entry "")
       (gtk-entry-set-text userswitch-entry "")))
+
+  (g-signal-connect do-detect "pressed"
+    (lambda ()
+      (detect-de)
+      (when (file-exists-p "~/.ssdrc")
+        (load "~/.ssdrc" t t t)
+        (when logout-cmd
+          (gtk-entry-set-text logout-entry logout-cmd))
+        (when reboot-cmd
+          (gtk-entry-set-text reboot-entry reboot-cmd))
+        (when shutdown-cmd
+          (gtk-entry-set-text shutdown-entry shutdown-cmd))
+        (when lockdown-cmd
+          (gtk-entry-set-text lockdown-entry lockdown-cmd))
+        (when suspend-cmd
+          (gtk-entry-set-text suspend-entry suspend-cmd))
+        (when hibernate-cmd
+          (gtk-entry-set-text hibernate-entry hibernate-cmd))
+        (when userswitch-cmd
+          (gtk-entry-set-text userswitch-entry userswitch-cmd)))))
 
   (gtk-widget-show-all swindow)
 
@@ -377,20 +417,7 @@ where OPT is one of:
   (copy-file "presets/razor" "~/.ssdrc"))
 
 (when (get-command-line-option "--detect")
-  (cond
-    ((getenv "KDE_FULL_SESSION") (copy-file "presets/kde4" "~/.ssdrc")
-				 (write standard-output "KDE4 detected."))
-    ;; XXX distinguish GNOME2 and GNOME3??
-    ((getenv "GNOME_DESKTOP_SESSION_ID") (copy-file "presets/gnome2" "~/.ssdrc")
-					 (write standard-output "GNOME2 detected."))
-    ((getenv "MATE_DESKTOP_SESSION_ID") (copy-file "presets/mate" "~/.ssdrc")
-					 (write standard-output "MATE detected."))
-    ((equal (getenv "XDG_CURRENT_DESKTOP") "Razor")
-		(copy-file "presets/razor" "~/.ssdrc")
-		(write standard-output "Razor-Qt detected.\n"))
-    ((equal (getenv "XDG_CURRENT_DESKTOP") "XFCE")
-		(copy-file "presets/xfce4" "~/.ssdrc")
-		(write standard-output "XFCE4 detected.\n")))
+  (detect-de)
   (throw 'quit 0))
 
 (when (file-exists-p "~/.ssdrc")
