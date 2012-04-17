@@ -487,4 +487,8 @@ where OPT is one of:
     (write standard-output "No command for userswitch set.\n"))
     (throw 'quit 1))
 
+(when command-line-args
+  (usage)
+  (throw 'quit 0))
+
 (main)

@@ -5,6 +5,7 @@
 	  requires a running Sawfish instance
 	- fix preset commands for Razor-Qt
 	- SSD Setup now offers 'detect' button
+	- when an unknown command line option is given, show usage
 
 0.30: "Drum Machine"
 	- re-load configuration after saving (so changes apply immediately now)
