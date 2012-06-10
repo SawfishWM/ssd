@@ -13,4 +13,4 @@ clean:
 	rm wrapper
 	rm Makefile
 
-distclean:
+distclean: clean

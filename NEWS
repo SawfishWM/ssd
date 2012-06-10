@@ -1,3 +1,6 @@
+0.41: "Tritolo"
+	- add debian packaging scripts
+
 0.40: "E=NC²"
 	- UI improvements
 	- Support for Switch User action
