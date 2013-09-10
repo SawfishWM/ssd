@@ -1,2 +1,1 @@
-LIB1 REP 0.90.0 librep
-LIB2 REP-GTK+ 0.90.0 rep-gtk
+LIBS=( "REP:0.90.0:librep" "REP-GTK+:0.90.0:rep-gtk" )

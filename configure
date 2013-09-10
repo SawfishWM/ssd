@@ -1,28 +1,33 @@
 #!/bin/bash
 shopt -s extglob
 
-MODULES=( base color messages checks substitute )
+MODULES=( base color messages checks substitute depends )
 
 for mod in ${MODULES[@]}; do
 	source $PWD/.configure/$mod
 done
+
+rm -f $PWD/.configure/results
 
 xcount=0
 pcount=$#
 
 while [[ $xcount -lt $pcount ]]; do
 	case $1 in
+		--mode=* )
+			MODE="${1/*=}"
+		;;
 
-		--prefix* )
+		--prefix=* )
 			PREFIX="${1/*=}"
 		;;
 
-		*quiet )
-			QUIET="true"
+		--quiet )
+			QUIET=true
 		;;
 
-		*help )
-			MODE=HELP
+		--help )
+			MODE=help
 		;;
 	esac
 	shift
@@ -31,22 +36,21 @@ done
 
 unset xcount pcount
 
-if [[ ! $PREFIX ]]; then
-	PREFIX="/usr"
-fi
-
-if [[ ! $MODE ]]; then
-	MODE=USER
-fi
-
-if [[ $MODE == HELP ]]; then
+if [[ $MODE == help ]]; then
 
 	help_message
 
-elif [[ $MODE == USER ]]; then
+elif [[ $MODE == maintainer ]]; then
+
+	maintainer_message
+	copy_in_files
+	substitute_values
+	end_message
+
+elif [[ $MODE == user ]]; then
 
 	start_message
-	check_libs
+	check_helper
 	copy_in_files
 	substitute_values
 	end_message

@@ -1,9 +1,17 @@
 #!/bin/bash
 
 export xVERSION=0.41
+APPLICATION="SSD"
 CODENAME="Tritolo"
 
 ERR_MSG=""
+
+PREFIX="/usr"
+BINDIR="$PREFIX/bin"
+DATADIR="$PREFIX/share/"
+
+MODE=user
+QUIET=false
 
 export OLDPATH=$PATH
 export PATH="$PATH:/sbin:/usr/sbin:/usr/local/sbin"

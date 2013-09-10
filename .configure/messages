@@ -2,13 +2,52 @@
 
 section_message () {
 
-	if [[ ! $QUIET ]]; then
+	if [[ $QUIET != "true" ]]; then
 		case $1 in
+
+			APP )
+				echo -e "\n${RED}Required ${WHITE}Applications:\n"
+			;;
+
+			OPT_APP )
+				echo -e "\n${MAGENTA}Optional ${WHITE}Applications:\n"
+			;;
+
+			SBINAPP )
+				echo -e "\n${RED}Required ${WHITE}SuperUser Applications:\n"
+			;;
+
+			OPT_SBINAPP )
+				echo -e "\n${MAGENTA}Optional ${WHITE}SuperUser Applications:\n"
+			;;
+
+			PY )
+				echo -e "\n${RED}Python Interpreter${WHITE} > 2.6 && < 3.0:\n"
+			;;
+
+			PYMOD )
+				echo -e "\n${RED}Required ${WHITE}Python Modules:\n"
+			;;
+
+			OPT_PYMOD )
+				echo -e "\n${MAGENTA}Optional ${WHITE}Python Modules:\n"
+			;;
 
 			LIB )
 				echo -e "\n${RED}Required ${WHITE}Libraries:\n"
 			;;
 
+			OPT_LIB )
+				echo -e "\n${MAGENTA}Optional ${WHITE}Libraries:\n"
+			;;
+
+			GIR )
+				echo -e "\n${RED}Required ${WHITE}GIR Repositories:\n"
+			;;
+
+			OPT_GIR)
+				echo -e "\n${MAGENTA}Optional ${WHITE}GIR Repositories:\n"
+			;;
 		esac
 	fi
 	tput sgr0
@@ -17,14 +56,14 @@ section_message () {
 
 start_message () {
 
-	echo -e "\n${GREEN}Sawfish-Session-Dialog${YELLOW} v${xVERSION} ${CYAN}${CODENAME}"
+	echo -e "\n${GREEN}${APPLICATION}${YELLOW} v${xVERSION} ${CYAN}${CODENAME}"
 	tput sgr0
 
 }
 
 ok_message () {
 
-	if [[ ! $QUIET ]]; then
+	if [[ $QUIET != "true" ]]; then
 		if [[ $2 != "" ]]; then
 			echo -e "${WHITE}\t+ ${CYAN}$1${MAGENTA} >${GREEN} O.K.${SILVER} ( $2 )"
 		else 	echo -e "${WHITE}\t+ ${CYAN}$1${MAGENTA} >${GREEN} O.K."
@@ -35,43 +74,65 @@ ok_message () {
 
 fail_message () {
 
-	if [[ $1 == "m" ]]; then
-		echo -e "${WHITE}\t+ ${CYAN}$2${MAGENTA} >${RED} !MISSING!"
-	elif [[ $1 == "o" ]]; then
-		echo -e "${WHITE}\t+ ${CYAN}$2${MAGENTA} >${RED} !OLDER THAN $3!"
-	fi
+	case $1 in
+
+		m )
+			echo -e "${WHITE}\t+ ${CYAN}$2${MAGENTA} >${RED} !MISSING!"
+		;;
+
+		o )
+			echo -e "${WHITE}\t+ ${CYAN}$2${MAGENTA} >${RED} !OLDER THAN $3!"
+		;;
+
+		p )
+			echo -e "${WHITE}\t+ ${CYAN}Python ($PYTHON)${MAGENTA} >${RED} !MISSING!"
+		;;
+
+		p- )
+			echo -e "${WHITE}\t+ ${CYAN}Python ($PYTHON)${MAGENTA} >${RED} !OLDER THAN 2.7.0!"
+		;;
+
+		p+ )
+			echo -e "${WHITE}\t+ ${CYAN}Python ($PYTHON)${MAGENTA} >${RED} !IS 3.0 OR ABOVE!"
+		;;
+	esac
 	tput sgr0
 
 }
 
 warn_message () {
 
-	echo -e "${WHITE}\t+ ${CYAN}$1${MAGENTA} >${YELLOW} Not Available"
+	echo -e "${WHITE}\t+ ${CYAN}$1${MAGENTA} >${YELLOW} Not Available\
+		\n\t  > ${WHITE}$2"
 	tput sgr0
 
 }
 
+maintainer_message () {
 
+	echo -e "\n${RED}Maintainer Mode ${WHITE}/ ${GREEN}Disabled Checks"
+	tput sgr0
+
+}
 
 end_message () {
 
 	export PATH="$OLDPATH"
-	echo -e "\n${YELLOW}Prefix:${WHITE} $PREFIX\n"
-	if [[ $ERR_MSG != "" ]]; then
-		echo -e "${YELLOW}Notes:\
-			\n${WHITE}${ERR_MSG}"
-	fi
+	echo -e "\n${BLUE}Notes from configure:\
+		 \n\n${YELLOW}Prefix:${WHITE}\t\t\t$PREFIX\n"
 	tput sgr0
 
 }
 
 help_message () {
 
-	echo -e "\n${GREEN}BashStyle-NG ${YELLOW}(configure 4.0.1) ${CYAN}help"
-	echo -e "\n${WHITE}Options:\n"
-	echo -e "\n${ORANGE}--help${WHITE} |${GREEN} Display this help message\
-	\n${ORANGE}--prefix=${WHITE} |${GREEN} Change Installation Prefix (default: /usr)\"" | column -t
-	echo ""
+	echo -e "\n${GREEN}${APPLICATION} ${YELLOW}(configure 4.2.2) ${CYAN}help
+	\n${WHITE}Options:"
+	echo -e "${ORANGE}--help${WHITE} *|${GREEN} Display this help message\
+	\n${ORANGE}--mode=<mode>${WHITE} *|${GREEN} user (do checks) or maintainer (skip checks)\
+	\n${ORANGE}--prefix=<prefix>${WHITE} *|${GREEN} Change installation prefix (default: /usr)\
+	\n${ORANGE}--quiet${WHITE} *|${GREEN} Only display warnings, failures and results" | column -t -s \*
+	echo
 	tput sgr0
 
 }

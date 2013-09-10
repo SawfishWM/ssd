@@ -1,5 +1,7 @@
 0.41: "Tritolo"
 	- add debian packaging scripts
+	- updated configure to 4.2.2
+	- added README
 
 0.40: "E=NC²"
 	- UI improvements
