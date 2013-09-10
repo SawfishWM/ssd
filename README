@@ -1,0 +1,17 @@
+SSD (Sawfish Session Dialog)
+
+SSD is a small and highly flexible SessionDialog, originaly (but not
+neccessarily) for use with the Sawfish WindowManager. It is a graphical
+wrapper for Session-Commands (Reboot, LogOut...)
+
+SSD has a scriptable interface (see `ssd --help') and each
+command can be configured, autodetection allows to apply commands for:
+   * KDE4
+   * XFCE4
+   * Razor-Qt
+   * GNOME
+   * MATE
+
+SSD requires librep (>= 0.90) and rep-gtk (>= 0.90)
+
+License: GNU GPL v3
