@@ -2,15 +2,27 @@ SSD (Sawfish Session Dialog)
 
 SSD is a small and highly flexible SessionDialog, originaly (but not
 neccessarily) for use with the Sawfish WindowManager. It is a graphical
-wrapper for Session-Commands (Reboot, LogOut...)
+wrapper for session commands, so it only offers the scriptable interface
+and the user interface for session commands, but relies on a session manager
+or external commands to actually do the work:
+   * Logout	(ssd --logout)
+   * Reboot	(ssd --reboot)
+   * Shutdown	(ssd --shutdown)
+   * Lockdown	(ssd --lockdown)
+   * Suspend	(ssd --suspend)
+   * Hibernate	(ssd --hibernate)
+   * Userswitch	(ssd --userswitch)
+   * GUI	(ssd)
 
 SSD has a scriptable interface (see `ssd --help') and each
 command can be configured, autodetection allows to apply commands for:
-   * KDE4
-   * XFCE4
-   * Razor-Qt
-   * GNOME
-   * MATE
+   * KDE4	(ssd --kde4)
+   * XFCE4	(ssd --xfce4)
+   * Razor-Qt	(ssd --razor)
+   * GNOME	(ssd --gnome2)
+   * MATE	(ssd --mate)
+   * Auto	(ssd --detect)
+   * Custom	(sdd --setup)
 
 SSD requires librep (>= 0.90) and rep-gtk (>= 0.90)
 
