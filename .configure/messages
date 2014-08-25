@@ -22,7 +22,7 @@ section_message () {
 			;;
 
 			PY )
-				echo -e "\n${RED}Python Interpreter${WHITE} > 2.6 && < 3.0:\n"
+				echo -e "\n${RED}Python Interpreter${WHITE} > 2.6 && < 3.5:\n"
 			;;
 
 			PYMOD )
@@ -93,7 +93,7 @@ fail_message () {
 		;;
 
 		p+ )
-			echo -e "${WHITE}\t+ ${CYAN}Python ($PYTHON)${MAGENTA} >${RED} !IS 3.0 OR ABOVE!"
+			echo -e "${WHITE}\t+ ${CYAN}Python ($PYTHON)${MAGENTA} >${RED} !IS 3.4 OR ABOVE!"
 		;;
 	esac
 	tput sgr0
@@ -126,7 +126,7 @@ end_message () {
 
 help_message () {
 
-	echo -e "\n${GREEN}${APPLICATION} ${YELLOW}(configure 4.2.2) ${CYAN}help
+	echo -e "\n${GREEN}${APPLICATION} ${YELLOW}(configure 4.2.3) ${CYAN}help
 	\n${WHITE}Options:"
 	echo -e "${ORANGE}--help${WHITE} *|${GREEN} Display this help message\
 	\n${ORANGE}--mode=<mode>${WHITE} *|${GREEN} user (do checks) or maintainer (skip checks)\
