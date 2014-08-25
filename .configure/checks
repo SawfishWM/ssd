@@ -33,7 +33,7 @@ check_helper () {
 		check_apps "true" "${OPT_SAPPS[@]}"
 	fi
 
-	check_python
+	#check_python
 
 	if [[ ${PYMODS[@]} != "" ]]; then
 		section_message PYMOD
