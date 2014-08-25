@@ -12,7 +12,7 @@ Build-Depends: debhelper (>= 3.4.4),
 Homepage: http://sawfish.wikia.com
 
 Package: ssd
-Architecture: any
+Architecture: all
 Depends: ${shlibs:Depends}
 Description: SSD (Sawfish Session Dialog)
  A small and highly flexible SessionDialog, originaly (but not
