@@ -1,14 +1,14 @@
 Source: ssd
 Section: x11
 Priority: optional
-Maintainer: Christopher Roy Bratusek <nano@tuxfamily.org>
+Maintainer: Christopher Roy Bratusek <nano@jpberlin.de>
 Standards-Version: 3.6.2
 Build-Depends: debhelper (>= 3.4.4),
                librep-dev (>= 0.90.5),
                libgtk2.0-dev (>= 2.24),
                sawfish (>= 3:1.8.90),
                rep-gtk (>= 0.90.2),
-               bc
+               bc, make
 Homepage: http://sawfish.wikia.com
 
 Package: ssd

@@ -1,13 +1,25 @@
-This package was debianized by Christopher Roy Bratusek <nano@tuxfamily.org> on
-Sun, 10 Jun 2012 09:32:27 +0200
+Format: http://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
+Upstream-Name: SSD
+Upstream-Contact: Christopher Roy Bratusek <nano@jpberlin.de>
+Source: http://sawfish.wikia.com/
 
-It was downloaded from http://download.tuxfamily.org/sawfish/Extras/
+Files: *
+Copyright: 2011-2014 Christopher Roy Bratusek <nano@jpberlin.de>
+License: GPL-3.0+
 
-Upstream Author: Christopher Roy Bratusek <nano@tuxfamily.org>
-
-Copyright: 2000 Satyaki Das, 2002 Daniel Pfeiffer, 2007 Janek Kozicki, 2008 Christopher Roy Bratusek
-
-  You should have received a copy of the GNU General Public License with the
-  Debian GNU/Linux distribution in file /usr/share/common-licenses/GPL; if
-  not, write to the Free Software Foundation, Inc., 59 Temple Place, Suite
-  330, Boston, MA 02111-1307 USA
+License: GPL-3.0+
+ This program is free software: you can redistribute it and/or modify
+ it under the terms of the GNU General Public License as published by
+ the Free Software Foundation, either version 3 of the License, or
+ (at your option) any later version.
+ .
+ This package is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU General Public License for more details.
+ .
+ You should have received a copy of the GNU General Public License
+ along with this program. If not, see <http://www.gnu.org/licenses/>.
+ .
+ On Debian systems, the complete text of the GNU General
+ Public License version 3 can be found in "/usr/share/common-licenses/GPL-3".
