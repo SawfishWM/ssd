@@ -2,6 +2,7 @@
 	- update configure to 4.3.0
 	- add support for SystemD (auto-detection and preset commands)
 	- rename "exit" button in UI to "cancel"
+	- add missing userswitch.png icon
 
 0.41: "Tritolo"
 	- add debian packaging scripts
