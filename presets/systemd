@@ -1,0 +1,16 @@
+;; Sawfish-Session-Dialog configuration
+
+(defvar-setq logout-cmd "")
+(defvar-setq reboot-cmd "dbus-send --system --print-reply \
+  --dest=org.freedesktop.login1 /org/freedesktop/login1 \
+  org.freedesktop.login1.Manager.Reboot boolean:true")
+(defvar-setq shutdown-cmd "dbus-send --system --print-reply \
+  --dest=org.freedesktop.login1 /org/freedesktop/login1 \
+  org.freedesktop.login1.Manager.PowerOff boolean:tru")
+(defvar-setq lockdown-cmd "")
+(defvar-setq suspend-cmd "dbus-send --system --print-reply \
+  --dest=org.freedesktop.login1 /org/freedesktop/login1 \
+  org.freedesktop.login1.Manager.Suspend boolean:true")
+(defvar-setq hibernate-cmd "dbus-send --system --print-reply \
+  --dest=org.freedesktop.login1 /org/freedesktop/login1 \
+  org.freedesktop.login1.Manager.Hibernate boolean:true")

@@ -21,6 +21,7 @@ command can be configured, autodetection allows to apply commands for:
    * Razor-Qt	(ssd --razor)
    * GNOME	(ssd --gnome2)
    * MATE	(ssd --mate)
+   * SystemD	(ssd --systemd)
    * Auto	(ssd --detect)
    * Custom	(sdd --setup)
 

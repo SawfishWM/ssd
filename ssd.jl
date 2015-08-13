@@ -1,7 +1,7 @@
 ;;
 ;; ssd.jl - Sawfis-Session-Dialog
 ;;
-;; (c) 2011,2012 Christopher Roy Bratusek <nano@tuxfamily.org>
+;; (c) 2011-2015 Christopher Roy Bratusek <nano@jpberlin.de>
 ;;
 ;; licensed under GNU GPL v2+
 ;;
@@ -25,7 +25,10 @@
 		(write standard-output "Razor-Qt detected.\n"))
     ((equal (getenv "XDG_CURRENT_DESKTOP") "XFCE")
 		(copy-file "presets/xfce4" "~/.ssdrc")
-		(write standard-output "XFCE4 detected.\n"))))
+		(write standard-output "XFCE4 detected.\n"))
+    ((when file-exists-p "/bin/systemd")
+		(copy-file "presets/systemd" "~/.ssdrc")
+		(write standard-output "SystemD detected.\n"))))
 
 (define (usage)
   (write standard-output "\
@@ -45,6 +48,7 @@ where OPT is one of:
 	--xfce4		Use XFCE4 commands
 	--mate		Use MATE commands
 	--razor		Use Razor-Qt commands
+	--systemd	Use SystemD commands
 	--setup         Use customized commands
 	--detect	Try to detect running desktop-environment\n"))
 
@@ -257,7 +261,7 @@ where OPT is one of:
   (gtk-window-set-position window 'center)
   (gtk-window-set-icon-from-file window "icons/ssd.png")
 
-  (define do-exit (gtk-button-new-with-label "Exit"))
+  (define do-exit (gtk-button-new-with-label "Cancel"))
   (define img-exit (gtk-image-new-from-file "icons/exit.png"))
   (gtk-button-set-image do-exit img-exit)
   (gtk-button-set-relief do-exit 'none)
@@ -419,6 +423,9 @@ where OPT is one of:
 
 (when (get-command-line-option "--razor")
   (copy-file "presets/razor" "~/.ssdrc"))
+
+(when (get-command-line-option "--systemd")
+  (copy-file "presets/systemd" "~/.ssdrc"))
 
 (when (get-command-line-option "--detect")
   (detect-de)
