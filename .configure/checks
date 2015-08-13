@@ -1,69 +1,36 @@
 #!/bin/bash
+#########################################################
+# 							#
+# This is BashStyle-NG  				#
+#							#
+# Licensed under GNU GENERAL PUBLIC LICENSE v3    	#
+#							#
+# Copyright 2007 - 2015 Christopher Bratusek		#
+#							#
+#########################################################
 
-check ()
-{
+trap "kill -s TERM $TOP_PID" TERM
+export TOP_PID=$$
 
-        for dir in ${PATH//:/ }; do
-                if [[ -e ${dir}/${1} ]]; then
-                        echo found && continue 2
-                fi
-        done
-
+check () {
+	for dir in ${PATH//:/ }; do
+		[[ -x ${dir}/${1} ]] && (echo found && continue 2)
+	done
 }
 
 check_helper () {
 
-	if [[ ${APPS[@]} != "" ]]; then
-		section_message APP
-		check_apps "false" "${APPS[@]}"
-	fi
-
-	if [[ ${OPT_APPS[@]} != "" ]]; then
-		section_message OPT_APP
-		check_apps "true" "${OPT_APPS[@]}"
-	fi
-
-	if [[ ${SAPPS[@]} != "" ]]; then
-		section_message SBINAPP
-		check_apps "false" "${SAPPS[@]}"
-	fi
-
-	if [[ ${OPT_SAPPS[@]} != "" ]]; then
-		section_message OPT_SBINAPP
-		check_apps "true" "${OPT_SAPPS[@]}"
-	fi
-
+	[[ ${APPS[@]} ]] && (section_message APP && check_apps "false" "${APPS[@]}")
+	[[ ${OPT_APPS[@]} ]] && (section_message OPT_APP && check_apps "true" "${OPT_APPS[@]}")
+	[[ ${SAPPS[@]} ]] && (section_message SBINAPP && check_apps "false" "${SAPPS[@]}")
+	[[ ${OPT_SAPPS[@]} ]] && (section_message OPT_SBINAPP && check_apps "true" "${OPT_SAPPS[@]}")
 	#check_python
-
-	if [[ ${PYMODS[@]} != "" ]]; then
-		section_message PYMOD
-		check_pymods "false" "${PYMODS[@]}"
-	fi
-
-	if [[ ${OPT_PYMODS[@]} != "" ]]; then
-		section_message OPT_PYMOD
-		check_pymods "true" "${OPT_PYMODS[@]}"
-	fi
-
-	if [[ ${LIBS[@]} != "" ]]; then
-		section_message LIB
-		check_libs "false" "${LIBS[@]}"
-	fi
-
-	if [[ ${OPT_LIBS[@]} != "" ]]; then
-		section_message OPT_LIB
-		check_libs "false" "${OPT_LIBS[@]}"
-	fi
-
-	if [[ ${GIR[@]} != "" ]]; then
-		section_message GIR
-		check_gir "false" "${GIR[@]}"
-	fi
-
-	if [[ ${OPT_GIR[@]} != "" ]]; then
-		section_message OPT_GIR
-		check_gir "false" "${OPT_GIR[@]}"
-	fi
+	[[ ${PYMODS[@]} ]] && (section_message PYMOD && check_pymods "false" "${PYMODS[@]}")
+	[[ ${OPT_PYMODS[@]} ]] && (section_message OPT_PYMOD && check_pymods "true" "${OPT_PYMODS[@]}")
+	[[ ${LIBS[@]} ]] && (section_message LIB && check_libs "false" "${LIBS[@]}")
+	[[ ${OPT_LIBS[@]} ]] && (section_message OPT_LIB && check_libs "false" "${OPT_LIBS[@]}")
+	[[ ${GIR[@]} ]] && (section_message GIR && check_gir "false" "${GIR[@]}")
+	[[ ${OPT_GIR[@]} ]] && (section_message OPT_GIR && check_gir "false" "${OPT_GIR[@]}")
 
 }
 
@@ -76,13 +43,13 @@ for ARG in "$@"; do
 	APP="${ARG/:*}"
 	DESC="${ARG/*:}"
 	DEP_RETURN=$(check $APP)
-	if [[ $DEP_RETURN == "found" ]]; then
-		ok_message "$APP"
-	elif [[ $DEP_RETURN != "found" && $OPT == "true" ]]; then
+	if [[ $DEP_RETURN == *found* ]]; then
+		ok_message $APP
+	elif [[ $DEP_RETURN != *found* && $OPT == true ]]; then
 		warn_message $APP "$DESC"
 		MISSING+=" $APP"
 	else 	fail_message m $APP
-		exit 1
+		kill -s TERM $TOP_PID
 	fi
 done
 
@@ -108,14 +75,14 @@ for ARG in "$@"; do
 
 	if [[ $EXIST_RETURN != 0 && ! $OPT == "true" ]]; then
 		fail_message m $LIB
-		exit 1
+		kill -s TERM $TOP_PID
 	elif [[ $DEP_RETURN == 0 ]]; then
 		ok_message $LIB ${VERSION}+
 	elif [[ $EXIST_RETURN != 0 && $OPT == "true" ]]; then
 		warn_message $LIB "$DESC"
 		MISSING+=" $LIB"
 	else	fail_message o $LIB $VERSION
-		exit 1
+		kill -s TERM $TOP_PID
 	fi
 
 done
@@ -143,14 +110,14 @@ for ARG in "$@"; do
 
 	if [[ $EXIST_RETURN != 0 && ! $OPT == "true" ]]; then
 		fail_message m $GIR
-		exit 1
+		kill -s TERM $TOP_PID
 	elif [[ $DEP_RETURN == 1 ]]; then
 		ok_message $GIR ${VERSION}+
 	elif [[ $EXIST_RETURN != 0 && $OPT == "true" ]]; then
 		warn_message $GIR "$DESC"
 		MISSING+=" $GIR"
 	else	fail_message o $GIR $VERSION
-		exit 1
+		kill -s TERM $TOP_PID
 	fi
 
 done
@@ -161,19 +128,19 @@ check_python () {
 
 section_message PY
 
-if [[ ! -e $PYTHON ]]; then
+if [[ ! -x $PYTHON ]]; then
 	fail_message p
-	exit 1
+	kill -s TERM $TOP_PID
 else
 	PYMINVER=270
 	PYMAXVER=350
 	PYVER=$($PYTHON --version 2>&1 | gawk '{ gsub(/\./,""); gsub(/\+/,""); gsub(/rc.*/,""); print $2 }')
 	if [[ $PYVER -lt $PYMINVER ]]; then
 		fail_message p-
-		exit 1
+		kill -s TERM $TOP_PID
 	elif [[ $PYVER -gt $PYMAXVER ]]; then
 		fail_message p+
-		exit 1
+		kill -s TERM $TOP_PID
 	else
 		ok_message Python
 	fi
@@ -208,7 +175,7 @@ imp.find_module('$MOD')" 2>/dev/null
 		warn_message $DEP "${DESC}"
 		MISSING+=" $DEP"
 	else 	fail_message m $DEP
-		exit 1
+		kill -s TERM $TOP_PID
 	fi
 
 done

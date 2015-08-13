@@ -1,8 +1,17 @@
 #!/bin/bash
+#########################################################
+# 							#
+# This is BashStyle-NG  				#
+#							#
+# Licensed under GNU GENERAL PUBLIC LICENSE v3    	#
+#							#
+# Copyright 2007 - 2015 Christopher Bratusek		#
+#							#
+#########################################################
 
-export xVERSION=0.41
+export xVERSION=0.42
 APPLICATION="SSD"
-CODENAME="Tritolo"
+CODENAME="Heavywheight Jam"
 
 ERR_MSG=""
 

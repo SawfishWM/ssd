@@ -1,58 +1,48 @@
 #!/bin/bash
+#########################################################
+# 							#
+# This is BashStyle-NG  				#
+#							#
+# Licensed under GNU GENERAL PUBLIC LICENSE v3    	#
+#							#
+# Copyright 2007 - 2015 Christopher Bratusek		#
+#							#
+#########################################################
+
 shopt -s extglob
 
 MODULES=( base color messages checks substitute depends )
 
 for mod in ${MODULES[@]}; do
-	source $PWD/.configure/$mod
+	source ${PWD}/.configure/$mod
 done
 
-rm -f $PWD/.configure/results
+rm -f ${PWD}/.configure/results
 
 xcount=0
-pcount=$#
-
-while [[ $xcount -lt $pcount ]]; do
+while [[ ${xcount} -lt $# ]]; do
 	case $1 in
-		--mode=* )
-			MODE="${1/*=}"
-		;;
-
-		--prefix=* )
-			PREFIX="${1/*=}"
-		;;
-
-		--quiet )
-			QUIET=true
-		;;
-
-		--help )
-			MODE=help
-		;;
+		--mode=* )		MODE="${1/*=}" ;;
+		--prefix=* )		PREFIX="${1/*=}" ;;
+		--quiet )		QUIET=true ;;
+		--help )		MODE=help ;;
 	esac
 	shift
 	xcount=$(($xcount+1))
 done
+unset xcount
 
-unset xcount pcount
-
-if [[ $MODE == help ]]; then
-
+if [[ ${MODE} == help ]]; then
 	help_message
-
-elif [[ $MODE == maintainer ]]; then
-
+elif [[ ${MODE} == maintainer ]]; then
 	maintainer_message
 	copy_in_files
 	substitute_values
 	end_message
-
-elif [[ $MODE == user ]]; then
-
+elif [[ ${MODE} == user ]]; then
 	start_message
 	check_helper
 	copy_in_files
 	substitute_values
 	end_message
-
 fi

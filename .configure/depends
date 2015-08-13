@@ -1,1 +1,15 @@
-LIBS=( "REP:0.90.0:librep" "REP-GTK+:0.90.0:rep-gtk" )
+APPS=( )
+OPT_APPS=( )
+
+SAPPS=( )
+OPT_SAPPS=(  )
+
+LIBS=( "REP:0.90.0:librep"
+"REP-GTK+:0.90.0:rep-gtk" )
+OPT_LIBS=( )
+
+GIR=( )
+OPT_GIR=( )
+
+PYMODS=( )
+OPT_PYMODS=( )

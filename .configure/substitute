@@ -1,9 +1,15 @@
 #!/bin/bash
+#########################################################
+# 							#
+# This is BashStyle-NG  				#
+#							#
+# Licensed under GNU GENERAL PUBLIC LICENSE v3    	#
+#							#
+# Copyright 2007 - 2015 Christopher Bratusek		#
+#							#
+#########################################################
 
 IN_FILES=( wrapper Makefile )
-
-
-SUB_PREFIX_FILES=( wrapper Makefile )
 
 copy_in_files () {
 
@@ -16,6 +22,7 @@ copy_in_files () {
 substitute_values () {
 
 	# substitute PREFIX
-	sed -e "s>@PREFIX@>$PREFIX>g" -i ${SUB_PREFIX_FILES[@]}
+	sed -e "s>@PREFIX@>$PREFIX>g" -i ${IN_FILES[@]}
+	sed -e "s>//>/>g" -i ${IN_FILES[@]}
 
 }
