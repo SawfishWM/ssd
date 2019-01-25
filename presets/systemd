@@ -6,7 +6,7 @@
   org.freedesktop.login1.Manager.Reboot boolean:true")
 (defvar-setq shutdown-cmd "dbus-send --system --print-reply \
   --dest=org.freedesktop.login1 /org/freedesktop/login1 \
-  org.freedesktop.login1.Manager.PowerOff boolean:tru")
+  org.freedesktop.login1.Manager.PowerOff boolean:true")
 (defvar-setq lockdown-cmd "")
 (defvar-setq suspend-cmd "dbus-send --system --print-reply \
   --dest=org.freedesktop.login1 /org/freedesktop/login1 \
